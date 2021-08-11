@@ -23,11 +23,11 @@ jobs:
           # terraform apply --auto-approve
           # arn:aws:iam::645754663793:role/accountswitchrole
 
-      - name: Switch role
+      - name: Switch to prod account role
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
-          role-to-assume: arn:aws:iam::645754663793:role/accountswitchrole
+          role-to-assume: ${{secrets.PRPOD_ACCOUNT_ROLE}}
           role-duration-seconds: 3600
 
       - name: Get caller id

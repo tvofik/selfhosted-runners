@@ -41,5 +41,5 @@ jobs:
         run: |
           aws sts get-caller-identity
           terraform init
-          terraform apply -var "account-id=${{ secrets.PROD_ACCOUNT_ID }}" --auto-approve
+          terraform apply --auto-approve
           aws s3 ls

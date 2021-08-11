@@ -1,5 +1,5 @@
-resource "aws_s3_bucket" "b" {
-  bucket = "freda-bucket-testing-123"
+resource "aws_s3_bucket" "bucket" {
+  bucket = "freda-bucket-testing-${var.account-id}"
   acl    = "private"
 
   tags = {
@@ -10,4 +10,9 @@ resource "aws_s3_bucket" "b" {
 
 provider "aws" {
   region = "us-east-1"
+}
+
+variable "account-id" {
+  type = string
+  description = "the account id"
 }

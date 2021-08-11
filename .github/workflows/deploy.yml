@@ -3,6 +3,8 @@ on:
   - pull_request
   - push
   - workflow_dispatch
+env:
+  ROLE_NAME: accountswitchrole
 
 jobs:
   deploy:
@@ -11,14 +13,12 @@ jobs:
       - name: check out repo
         uses: actions/checkout@v2
 
-      # - uses: actions/setup-node@v1 #! for some reason in had to use this action for the terraform steps to work
+      # - uses: actions/setup-node@v1 #! for some reason I had to use this action for the terraform steps to work on LINUX
       - uses: hashicorp/setup-terraform@v1
       - name: Get caller id
         run: |
-          aws --version
           aws sts get-caller-identity
-
-          # terraform --version
+          aws s3 ls
           # terraform init
           # terraform apply --auto-approve
           # arn:aws:iam::645754663793:role/accountswitchrole
@@ -27,10 +27,19 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
-          role-to-assume: ${{ secrets.PROD_ACCOUNT_ROLE }}
+          # arn:aws:iam::645754663793:role/accountswitchrole
+          # role-to-assume: ${{ secrets.PROD_ACCOUNT_ROLE }}
+          role-to-assume: arn:aws:iam::${{ PROD_ACCOUNT_ID }}:role/${{ env.ROLE_NAME }}
           role-duration-seconds: 3600
 
       - name: Get caller id
         run: |
           aws --version
           aws sts get-caller-identity
+
+      - name: Deploy to account
+        run: |
+          aws sts get-caller-identity
+          terraform init
+          terraform apply -var account-id=${{ secrets.PROD_ACCOUNT_ID }}
+          aws s3 ls

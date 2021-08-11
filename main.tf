@@ -1,3 +1,4 @@
+data "aws_caller_identity" "current" {}
 resource "aws_s3_bucket" "bucket" {
   bucket = "freda-bucket-testing-${data.aws_caller_identity.current.account_id}"
   acl    = "private"
@@ -19,5 +20,4 @@ provider "aws" {
 
 
 
-data "aws_caller_identity" "current" {}
 # data.aws_caller_identity.current.account_id

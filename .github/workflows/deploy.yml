@@ -38,8 +38,7 @@ jobs:
           aws sts get-caller-identity
 
       - name: Deploy to account
-        run: |
-          aws sts get-caller-identity
-          terraform init
-          terraform apply --auto-approve
-          aws s3 ls
+        run: aws sts get-caller-identity
+      - run: terraform init
+      - run: terraform apply --auto-approve
+      - run: aws s3 ls

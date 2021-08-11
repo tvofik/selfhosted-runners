@@ -25,7 +25,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
-          role-to-assume: accountswitchrole
+          role-to-assume: arn:aws:iam::645754663793:role/accountswitchrole
 
       - name: Get caller id
         run: |

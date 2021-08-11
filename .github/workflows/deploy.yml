@@ -35,5 +35,5 @@ jobs:
       - name: Deploy to account
         run: |
           terraform init
-          terraform apply --auto-approve
+          terraform apply -var "account-id=${{ secrets.PROD_ACCOUNT_ID }}" --auto-approve
           aws s3 ls

@@ -11,16 +11,18 @@ jobs:
       - name: check out repo
         uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v1 #! for some reason in had to use this action for the terraform steps to work
+      # - uses: actions/setup-node@v1 #! for some reason in had to use this action for the terraform steps to work
       - uses: hashicorp/setup-terraform@v1
       - name: Get caller id
         run: |
           aws --version
           aws sts get-caller-identity
+
           # terraform --version
           # terraform init
           # terraform apply --auto-approve
           # arn:aws:iam::645754663793:role/accountswitchrole
+
       - name: Switch role
         uses: aws-actions/configure-aws-credentials@v1
         with:

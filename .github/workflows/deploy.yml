@@ -20,23 +20,20 @@ jobs:
         run: |
           terraform init
           terraform apply --auto-approve
-      # aws s3 ls
+          aws s3 ls
       # aws sts get-caller-identity
       # arn:aws:iam::645754663793:role/accountswitchrole
-      # - name: Switch to prod account role
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-region: us-east-1
-      #     # arn:aws:iam::645754663793:role/accountswitchrole
-      #     # role-to-assume: ${{ secrets.PROD_ACCOUNT_ROLE }}
-      #     role-to-assume: arn:aws:iam::${{ secrets.PROD_ACCOUNT_ID }}:role/${{ env.ROLE_NAME }}
-      #     role-duration-seconds: 3600
-      # - name: Get caller id
-      #   run: |
-      #     aws --version
-      #     aws sts get-caller-identity
-      # - name: Deploy to account
-      #   run: aws sts get-caller-identity
-      # - run: terraform init
-      # - run: terraform apply --auto-approve
-      # - run: aws s3 ls
+      - name: Switch to prod account role
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+          # arn:aws:iam::645754663793:role/accountswitchrole
+          # role-to-assume: ${{ secrets.PROD_ACCOUNT_ROLE }}
+          role-to-assume: arn:aws:iam::${{ secrets.PROD_ACCOUNT_ID }}:role/${{ env.ROLE_NAME }}
+          role-duration-seconds: 3600
+
+      - name: Deploy to account
+      - run: |
+          terraform init
+          terraform apply --auto-approve
+          aws s3 ls

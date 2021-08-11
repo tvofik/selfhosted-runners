@@ -17,10 +17,10 @@ jobs:
       - uses: hashicorp/setup-terraform@v1
       - name: Get caller id
         run: |
-          aws sts get-caller-identity
-          aws s3 ls
-          terraform apply --auto-approve
+          # aws sts get-caller-identity
+          # aws s3 ls
           terraform init
+          terraform apply --auto-approve
           # arn:aws:iam::645754663793:role/accountswitchrole
       # - name: Switch to prod account role
       #   uses: aws-actions/configure-aws-credentials@v1

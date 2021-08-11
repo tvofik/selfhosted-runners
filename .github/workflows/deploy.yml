@@ -33,7 +33,7 @@ jobs:
           role-duration-seconds: 3600
 
       - name: Deploy to account
-      - run: |
+        run: |
           terraform init
           terraform apply --auto-approve
           aws s3 ls

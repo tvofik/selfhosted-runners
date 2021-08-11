@@ -6,9 +6,12 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: check out repo
         uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1
-      - run: terraform --version
+      - run: |
+          terraform --version
+          terraform init
+          terraform apply --auto-approve

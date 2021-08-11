@@ -5,16 +5,16 @@ on:
   - workflow_dispatch
 
 jobs:
-  lint:
+  deploy:
     runs-on: self-hosted
     steps:
       - name: check out repo
         uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1 #! for some reason in had to use this action for the terraform steps to work
       - uses: hashicorp/setup-terraform@v1
 
-      - run:
+      - run: |
           terraform init
-          # terraform init
-          # terraform apply --auto-approve
+          terraform init
+          terraform apply --auto-approve

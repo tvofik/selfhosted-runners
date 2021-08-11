@@ -19,8 +19,8 @@ jobs:
         run: |
           aws sts get-caller-identity
           aws s3 ls
-          # terraform init
-          # terraform apply --auto-approve
+          terraform init
+          terraform apply --auto-approve
           # arn:aws:iam::645754663793:role/accountswitchrole
 
       - name: Switch to prod account role

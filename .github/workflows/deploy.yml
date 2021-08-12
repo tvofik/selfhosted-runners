@@ -18,7 +18,6 @@ jobs:
       - name: Deploy to HUB Account
         run: |
           terraform init
-          terraform plan
           terraform apply -var "account-id=${{ secrets.HUB_ACCOUNT_ID }}" -var "env=hub" --auto-approve
           aws s3 ls
           # aws sts get-caller-identity
@@ -35,7 +34,6 @@ jobs:
 
       - name: Deploy to account
         run: |
-          terraform init
-          terraform plan 
+          terraform init 
           terraform apply -var "account-id=${{ secrets.PROD_ACCOUNT_ID }}" -var "env=prod" --auto-approve
           aws s3 ls

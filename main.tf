@@ -14,7 +14,7 @@ provider "aws" {
 }
 
 variable "account-id" {
-  type = string
+  type        = string
   description = "the account id"
 }
 

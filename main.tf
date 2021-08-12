@@ -1,6 +1,6 @@
 data "aws_caller_identity" "current" {}
 resource "aws_s3_bucket" "bucket" {
-  bucket = "freda-bucket-testing-${var.account-id}"
+  bucket = "freda-bucket-testing-${var.account-id}-${var.env}"
   acl    = "private"
 
   tags = {
@@ -14,6 +14,10 @@ provider "aws" {
 }
 
 variable "account-id" {
+  type        = string
+  description = "the account id"
+}
+variable "env" {
   type        = string
   description = "the account id"
 }

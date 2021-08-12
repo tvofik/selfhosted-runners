@@ -11,25 +11,25 @@ jobs:
     # runs-on: [self-hosted, Windows]
     runs-on: [self-hosted, Linux]
     steps:
-      - name: check out repo
-        uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v1 #! for some reason I had to use this action for the terraform steps to work on LINUX
+      - uses: actions/checkout@v2
+      # - uses: actions/setup-node@v1 #! for some reason I had to use this action for the terraform steps to work on LINUX
       - uses: hashicorp/setup-terraform@v1
-      - name: Get caller id
+
+      - name: Deploy to HUB Account
         run: |
           terraform init
-          terraform apply --auto-approve
+          terraform apply -var "account-id=${{ secrets.HUB_ACCOUNT_ID }}" --auto-approve
           aws s3 ls
-      # aws sts get-caller-identity
-      # arn:aws:iam::645754663793:role/accountswitchrole
-      - name: Switch to prod account role
+          # aws sts get-caller-identity
+          # arn:aws:iam::645754663793:role/accountswitchrole
+
+      - name: Switch to Prod Account role
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
           # arn:aws:iam::645754663793:role/accountswitchrole
-          role-to-assume: ${{ secrets.PROD_ACCOUNT_ROLE }}
           # role-to-assume: arn:aws:iam::${{ secrets.PROD_ACCOUNT_ID }}:role/${{ env.ROLE_NAME }}
+          role-to-assume: ${{ secrets.PROD_ACCOUNT_ROLE }}
           role-duration-seconds: 3600
 
       - name: Deploy to account

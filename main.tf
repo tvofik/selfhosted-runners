@@ -13,7 +13,7 @@
 # variable "account-id" {
 #   type        = string
 #   description = "the account id"
-}
+# }
 # ======================2nd Option==========
 data "aws_caller_identity" "current" {}
 resource "aws_s3_bucket" "bucket" {
